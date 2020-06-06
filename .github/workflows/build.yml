@@ -31,17 +31,17 @@ jobs:
 
     # Add steps here like linting, testing, minification, etc.
       
-    - name: Setup ECR
-      run: |
-        # Login to AWS ECR
-        $( aws ecr get-login --no-include-email )
+    # - name: Setup ECR
+    #   run: |
+    #     # Login to AWS ECR
+    #     $( aws ecr get-login --no-include-email )
 
     - name: Build and tag the image
       run: |
         # Build and tag the image
         docker build \
           -t $CONTAINER_IMAGE \
-          -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE ./app
+          -t hisamitsu/$CONTAINER_IMAGE ./app
            
     # Add additional steps here like scanning of image
 
@@ -50,4 +50,4 @@ jobs:
       if: github.ref == 'refs/heads/master'
       run: |
         # Push image to AWS ECR
-        docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE
+        docker push hisamitsu/$CONTAINER_IMAGE
